@@ -5,6 +5,9 @@ import Layout from "../layout/Layout";
 import Signin from "../pages/auth/Signin";
 import VerifyOTP from "../pages/auth/VerifyOTP";
 import HomeDashboard from "../pages/dashboard/HomeDashboard";
+import Projects from "../pages/dashboard/Projects";
+import Team from "../pages/dashboard/Team";
+import Community from "../pages/dashboard/Community";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +35,18 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <HomeDashboard />,
+      },
+      {
+        path: "projects",
+        element: <Projects />,
+      },
+      {
+        path: "team",
+        element: <Team />,
+      },
+      {
+        path: "Community",
+        element: <Community />,
       },
     ],
   },
