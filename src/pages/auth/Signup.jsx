@@ -2,18 +2,25 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { Eye, EyeOff, Github, Mail } from "lucide-react";
 import logo from "../../../public/project.png";
+import { Link, useNavigate } from "react-router-dom";
 
 const Signup = () => {
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const navigate = useNavigate();
 
   const onSubmit = (data) => {
     console.log("Form Data:", data);
+    navigate("/verify-otp");
   };
 
   return (
-    <div className="bg-white/10 backdrop-blur-lg shadow-xl rounded-2xl p-6 w-full max-w-lg z-10 my-4 h-[94vh] border border-primary">
+    <div className="bg-white/10 backdrop-blur-lg shadow-2xl rounded-2xl p-6 w-full max-w-lg z-10 my-4 h-[94vh] border border-primary">
       <div className="text-center mb-6">
         <div className="flex justify-center items-center gap-2">
           <img className="w-6 h-6" src={logo} alt="logo" />
@@ -39,6 +46,9 @@ const Signup = () => {
               className="mt-1 text-sm w-full px-3 py-2 rounded-lg bg-gray-800 text-white border border-gray-600"
               placeholder="Enter your name"
             />
+            {errors.firstname && (
+              <p className="text-red-400 text-sm">{errors.firstname.message}</p>
+            )}
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-200">
@@ -50,6 +60,9 @@ const Signup = () => {
               className="mt-1 text-sm w-full px-3 py-2 rounded-lg bg-gray-800 text-white border border-gray-600"
               placeholder="Enter your name"
             />
+            {errors.lastname && (
+              <p className="text-red-400 text-sm">{errors.lastname.message}</p>
+            )}
           </div>
         </div>
 
@@ -64,6 +77,9 @@ const Signup = () => {
             className="mt-1 text-sm w-full px-3 py-2 rounded-lg bg-gray-800 text-white border border-gray-600"
             placeholder="Enter your email"
           />
+          {errors.email && (
+            <p className="text-red-400 text-sm">{errors.email.message}</p>
+          )}
         </div>
 
         {/* Password */}
@@ -79,12 +95,17 @@ const Signup = () => {
                 className="mt-1 text-sm w-full px-3 py-2 rounded-lg bg-gray-800 text-white border border-gray-600 pr-10"
                 placeholder="Enter password"
               />
+              {errors.password && (
+                <p className="text-red-400 text-sm">
+                  {errors.password.message}
+                </p>
+              )}
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute inset-y-0 right-3 flex items-center text-gray-400"
               >
-                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                {showPassword ? <Eye size={18} /> : <EyeOff size={18} />}
               </button>
             </div>
           </div>
@@ -100,12 +121,17 @@ const Signup = () => {
                 className="mt-1 text-sm w-full px-3 py-2 rounded-lg bg-gray-800 text-white border border-gray-600 pr-10"
                 placeholder="Confirm password"
               />
+              {errors.confirmPassword && (
+                <p className="text-red-400 text-sm">
+                  {errors.confirmPassword.message}
+                </p>
+              )}
               <button
                 type="button"
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                 className="absolute inset-y-0 right-3 flex items-center text-gray-400"
               >
-                {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                {showConfirmPassword ? <Eye size={18} /> : <EyeOff size={18} />}
               </button>
             </div>
           </div>
@@ -116,15 +142,18 @@ const Signup = () => {
           <input
             type="checkbox"
             {...register("terms")}
-            className="accent-blue-600"
+            className="curposor-pointer"
           />
+          {errors.terms && (
+            <p className="text-red-400 text-sm">{errors.terms.message}</p>
+          )}
           <span>I agree to the Terms & Conditions</span>
         </div>
 
         {/* Signup Button */}
         <button
           type="submit"
-          className="w-full bg-button text-white py-2 rounded-lg font-semibold transition"
+          className="w-full bg-button text-white py-2 rounded-lg font-semibold transition cursor-pointer"
         >
           Sign Up
         </button>
@@ -149,9 +178,9 @@ const Signup = () => {
       {/* Already have account */}
       <p className="text-center text-gray-300 text-sm mt-4">
         Already signed up?{" "}
-        <a href="/login" className="text-button hover:underline font-medium">
+        <Link to="/signin" className="text-button hover:underline font-medium">
           Sign in
-        </a>
+        </Link>
       </p>
     </div>
   );
