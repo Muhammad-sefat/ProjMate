@@ -34,7 +34,7 @@ const Layout = () => {
       </div>
       <div className="w-[82%]">
         <Navbar links={links} />
-        <div className="p-4 bg-[#f2f3f6]">
+        <div className="p-4">
           <Outlet />
         </div>
       </div>

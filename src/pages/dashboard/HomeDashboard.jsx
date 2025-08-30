@@ -1,7 +1,9 @@
+import DashboardOverview from "../../components/dashboard/DashboardOverview";
+
 const HomeDashboard = () => {
   return (
     <div>
-      <p>home dashboard</p>
+      <DashboardOverview />
     </div>
   );
 };

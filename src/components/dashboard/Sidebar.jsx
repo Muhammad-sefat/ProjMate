@@ -4,7 +4,7 @@ import logo from "../../../public/project.png";
 
 const Sidebar = ({ links }) => {
   return (
-    <div className="h-screen border-r border-primary/80 flex flex-col justify-between">
+    <div className="h-screen border-r border-primary/80 flex flex-col justify-between bg-[#f2f3f6]">
       <div>
         <Link
           to="/"

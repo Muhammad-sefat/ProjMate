@@ -12,7 +12,7 @@ const Navbar = ({ links }) => {
   const currentTitle = currentLink ? currentLink.name : "Dashboard";
 
   return (
-    <div className="border-b border-primary">
+    <div className="border-b border-primary bg-[#f2f3f6]">
       <div className="flex items-center justify-between py-2.5 px-6">
         <h2 className="text-xl font-bold text-primary">{currentTitle}</h2>
         <div className="flex items-center gap-2">
