@@ -67,7 +67,7 @@ const DashboardOverview = () => {
         <div className="bg-[#f2f3f6] p-4 rounded-lg shadow">
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-bold text-primary">Pending Projects</h2>
-            <p className="text-primary bg-orange-100 p-2 rounded-full">
+            <p className="text-primary bg-[#efdada] p-2 rounded-full">
               <Clock size={18} />
             </p>
           </div>

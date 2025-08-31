@@ -28,13 +28,13 @@ const links = [
 
 const Layout = () => {
   return (
-    <div className="flex">
-      <div className="w-[18%]">
+    <div className="flex h-screen">
+      <div className="w-[18%] bg-white border-r h-screen sticky top-0">
         <Sidebar links={links} />
       </div>
-      <div className="w-[82%]">
+      <div className="w-[82%] flex flex-col">
         <Navbar links={links} />
-        <div className="p-4">
+        <div className="flex-1 overflow-y-auto p-5">
           <Outlet />
         </div>
       </div>
