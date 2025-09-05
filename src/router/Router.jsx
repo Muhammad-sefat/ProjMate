@@ -8,6 +8,7 @@ import HomeDashboard from "../pages/dashboard/HomeDashboard";
 import Projects from "../pages/dashboard/Projects";
 import Team from "../pages/dashboard/Team";
 import Community from "../pages/dashboard/Community";
+import ProjectDetailsStepper from "../components/dashboard/ProjectDetailsStepper";
 
 const router = createBrowserRouter([
   {
@@ -38,8 +39,18 @@ const router = createBrowserRouter([
       },
       {
         path: "projects",
-        element: <Projects />,
+        children: [
+          {
+            index: true,
+            element: <Projects />,
+          },
+          {
+            path: "project-details-stepper",
+            element: <ProjectDetailsStepper />,
+          },
+        ],
       },
+
       {
         path: "team",
         element: <Team />,

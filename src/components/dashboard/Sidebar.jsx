@@ -20,7 +20,7 @@ const Sidebar = ({ links }) => {
             <NavLink
               key={link.name}
               to={link.path}
-              end
+              end={link.name !== "Projects"}
               className={({ isActive }) =>
                 `flex items-center gap-3 mx-4 px-6 py-2 cursor-pointer transition rounded-lg 
                 ${

@@ -49,7 +49,7 @@ const RecentProject = () => {
 
             {/* Right side */}
             <div className="text-right">
-              <p className="text-sm font-medium text-primary bg-emerald-100 px-2 py-1 rounded-full w-auto inline-block">
+              <p className="text-sm font-medium text-primary bg-emerald-100 px-2 py-1 rounded-full w-auto inline-block mb-1">
                 {project.status}
               </p>
               <p className="text-sm text-gray-600">Due: {project.due}</p>

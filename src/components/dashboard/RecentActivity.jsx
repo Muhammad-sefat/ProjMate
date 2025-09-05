@@ -41,7 +41,7 @@ const RecentActivity = () => {
         {activities.map((activity) => (
           <div key={activity.id} className="flex items-start gap-3">
             <FcManager
-              className="p-2 bg-blue-50 rounded-full shrink-0"
+              className="p-2 bg-blue-100 rounded-full shrink-0"
               size={36}
             />
             <div>
