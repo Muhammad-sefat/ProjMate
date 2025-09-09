@@ -20,7 +20,7 @@ const Signup = () => {
   };
 
   return (
-    <div className="bg-white/10 backdrop-blur-lg shadow-2xl rounded-2xl p-6 w-full max-w-lg z-10 my-4 h-[94vh] border border-primary">
+    <div className="bg-white/10 backdrop-blur-lg shadow-2xl rounded-2xl p-6 w-full max-w-md sm:max-w-lg lg:max-w-xl z-10 my-4 border border-primary mx-4 sm:mx-auto">
       <div className="text-center mb-6">
         <div className="flex justify-center items-center gap-2">
           <img className="w-6 h-6" src={logo} alt="logo" />
@@ -35,7 +35,7 @@ const Signup = () => {
       {/* Form */}
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         {/* Name */}
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-200">
               First Name
@@ -83,7 +83,7 @@ const Signup = () => {
         </div>
 
         {/* Password */}
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-200">
               Password
@@ -138,11 +138,11 @@ const Signup = () => {
         </div>
 
         {/* Terms */}
-        <div className="flex items-center gap-2 text-sm text-gray-300">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 text-sm text-gray-300">
           <input
             type="checkbox"
             {...register("terms")}
-            className="curposor-pointer"
+            className="cursor-pointer"
           />
           {errors.terms && (
             <p className="text-red-400 text-sm">{errors.terms.message}</p>
@@ -159,7 +159,7 @@ const Signup = () => {
         </button>
 
         {/* Social Auth */}
-        <div className="flex gap-4">
+        <div className="flex flex-col sm:flex-row gap-4">
           <button
             type="button"
             className="w-full text-sm flex items-center justify-center gap-2 border border-gray-600 py-2 rounded-lg text-white hover:bg-gray-800 transition cursor-pointer"

@@ -182,46 +182,46 @@ const Projects = () => {
         <table className="w-full text-sm">
           <thead className="bg-blue-100">
             <tr>
-              <th className="p-3 text-left">SL</th>
-              <th className="p-3 text-left">Project Name</th>
-              <th className="p-3 text-left">Client</th>
-              <th className="p-3 text-left">Lead</th>
-              <th className="p-3 text-left">Members</th>
-              <th className="p-3 text-left">Status</th>
-              <th className="p-3 text-left">Start Date</th>
-              <th className="p-3 text-left">End Date</th>
-              <th className="p-3 text-center">Actions</th>
+              <th className="p-4 text-left">SL</th>
+              <th className="p-4 text-left">Project Name</th>
+              <th className="p-4 text-left">Client</th>
+              <th className="p-4 text-left">Lead</th>
+              <th className="p-4 text-left">Members</th>
+              <th className="p-4 text-left">Status</th>
+              <th className="p-4 text-left">Start Date</th>
+              <th className="p-4 text-left">End Date</th>
+              <th className="p-4 text-center">Actions</th>
             </tr>
           </thead>
           <tbody>
             {filteredData.map((project, index) => (
               <tr key={project.id} className="border-t hover:bg-blue-50">
-                <td className="p-3">{index + 1}</td>
-                <td className="p-3">{project.name}</td>
-                <td className="p-3">{project.client}</td>
-                <td className="p-3">{project.lead}</td>
-                <td className="py-3 px-6">{project.members}</td>
-                <td className="p-3">
+                <td className="p-4">{index + 1}</td>
+                <td className="p-4">{project.name}</td>
+                <td className="p-4">{project.client}</td>
+                <td className="p-4">{project.lead}</td>
+                <td className="py-4 px-6">{project.members}</td>
+                <td className="p-4">
                   <span className={getStatusClasses(project.status)}>
                     {project.status}
                   </span>
                 </td>
-                <td className="p-3">{project.startDate}</td>
-                <td className="p-3">{project.endDate}</td>
-                <td className="py-3 px-8 relative text-end" ref={menuRef}>
+                <td className="p-4">{project.startDate}</td>
+                <td className="p-4">{project.endDate}</td>
+                <td className="p- relative" ref={menuRef}>
                   <div
                     onClick={(e) => {
                       e.stopPropagation();
                       setOpenMenu(openMenu === project.id ? null : project.id);
                     }}
-                    className="cursor-pointer p-1 aspect-square rounded-full hover:bg-blue-200 flex items-center justify-center"
+                    className="cursor-pointer p-2 rounded-full hover:bg-blue-200 w-8 h-8 absolute top-1/2 right-12 transform -translate-y-1/2 flex items-center justify-center"
                   >
                     <BsThreeDotsVertical size={18} />
                   </div>
 
                   {openMenu === project.id && (
                     <div
-                      className="absolute right-0 mt-1 w-28 shadow-lg rounded-md z-50 bg-blue-900 text-white"
+                      className="absolute right-0 mt-1 w-36 shadow-lg rounded-md z-50 bg-blue-900 text-white"
                       onMouseDown={(e) => e.stopPropagation()}
                     >
                       <Link
