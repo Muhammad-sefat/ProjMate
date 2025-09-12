@@ -1,9 +1,9 @@
-import React from "react";
+import CommunitySection from "../../components/dashboard/CommunitySection";
 
 const Community = () => {
   return (
     <div>
-      <p>Community</p>
+      <CommunitySection />
     </div>
   );
 };

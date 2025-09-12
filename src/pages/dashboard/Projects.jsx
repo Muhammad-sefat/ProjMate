@@ -6,6 +6,7 @@ import { MdDeleteOutline, MdOutlineEdit } from "react-icons/md";
 import SelectInput from "../../components/common/SelectInput";
 import AddProjectModal from "../../components/common/AddProjectModal";
 import { Link } from "react-router-dom";
+import { MoveLeft, MoveRight } from "lucide-react";
 
 const Projects = () => {
   const initialData = [
@@ -116,6 +117,8 @@ const Projects = () => {
   const [openMenu, setOpenMenu] = useState(null);
   const menuRef = useRef(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const rowsPerPage = 8;
 
   const filteredData = useMemo(() => {
     return data.filter((project) =>
@@ -134,6 +137,21 @@ const Projects = () => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  // total pages
+  const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+
+  // slice data for current page
+  const startIndex = (currentPage - 1) * rowsPerPage;
+  const endIndex = startIndex + rowsPerPage;
+  const currentData = filteredData.slice(startIndex, endIndex);
+
+  // function to handle page change
+  const goToPage = (page) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+  };
 
   // Status badge styling
   const getStatusClasses = (status) => {
@@ -176,7 +194,6 @@ const Projects = () => {
           </button>
         </div>
       </div>
-
       {/* Table */}
       <div className="overflow-x-auto border rounded-md dark:border-slate-700">
         <table className="w-full text-sm">
@@ -194,7 +211,7 @@ const Projects = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredData.map((project, index) => (
+            {currentData.map((project, index) => (
               <tr key={project.id} className="border-t hover:bg-blue-50">
                 <td className="p-3">{index + 1}</td>
                 <td className="p-3">{project.name}</td>
@@ -258,6 +275,40 @@ const Projects = () => {
           </tbody>
         </table>
       </div>
+      {totalPages > 1 && (
+        <div className="flex items-center justify-end space-x-2 mt-4">
+          {/* Prev Button */}
+          <button
+            onClick={() => goToPage(currentPage - 1)}
+            disabled={currentPage === 1}
+            className="p-2 border rounded-full disabled:opacity-50 cursor-pointer"
+          >
+            <MoveLeft size={18} />
+          </button>
+          {Array.from({ length: totalPages }, (_, i) => (
+            <button
+              key={i}
+              onClick={() => goToPage(i + 1)}
+              className={`w-8 h-8 border rounded-full cursor-pointer ${
+                currentPage === i + 1
+                  ? "bg-primary text-white"
+                  : "hover:bg-blue-100"
+              }`}
+            >
+              {i + 1}
+            </button>
+          ))}
+
+          {/* Next Button */}
+          <button
+            onClick={() => goToPage(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            className="p-2 border rounded-full disabled:opacity-50 cursor-pointer"
+          >
+            <MoveRight size={18} />
+          </button>
+        </div>
+      )}
       <AddProjectModal
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
