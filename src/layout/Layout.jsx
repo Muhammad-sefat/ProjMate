@@ -5,6 +5,7 @@ import {
   FolderKanban,
   LayoutDashboard,
   MessageCircle,
+  Settings,
   Users,
 } from "lucide-react";
 const links = [
@@ -23,6 +24,11 @@ const links = [
     name: "Community",
     path: "/dashboard/community",
     icon: <MessageCircle size={20} />,
+  },
+  {
+    name: "Settings",
+    path: "/dashboard/settings",
+    icon: <Settings size={20} />,
   },
 ];
 

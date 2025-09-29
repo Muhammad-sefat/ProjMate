@@ -22,10 +22,13 @@ const Signup = () => {
   return (
     <div className="bg-white/10 backdrop-blur-lg shadow-2xl rounded-2xl p-6 w-full max-w-md sm:max-w-lg lg:max-w-xl z-10 my-4 border border-primary mx-4 sm:mx-auto">
       <div className="text-center mb-6">
-        <div className="flex justify-center items-center gap-2">
+        <Link
+          to="/dashboard"
+          className="flex justify-center items-center gap-2"
+        >
           <img className="w-6 h-6" src={logo} alt="logo" />
           <h1 className="text-2xl font-bold text-white">ProjMate</h1>
-        </div>
+        </Link>
 
         <p className="text-gray-300 text-sm mt-1">
           Manage your projects with ease 🚀

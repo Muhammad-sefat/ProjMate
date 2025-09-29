@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import logo from "../../../public/project.png";
 import { Eye, EyeOff, Github, Mail } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Signin = () => {
   const {
@@ -21,10 +21,13 @@ const Signin = () => {
   return (
     <div className="bg-white/10 backdrop-blur-lg shadow-2xl rounded-2xl p-6 w-full max-w-lg z-10 my-4 border border-primary">
       <div className="text-center mb-6">
-        <div className="flex justify-center items-center gap-2">
+        <Link
+          to="/dashboard"
+          className="flex justify-center items-center gap-2"
+        >
           <img className="w-6 h-6" src={logo} alt="logo" />
           <h1 className="text-2xl font-bold text-white">ProjMate</h1>
-        </div>
+        </Link>
 
         <p className="text-gray-300 text-sm mt-1">
           Manage your projects with ease 🚀
@@ -71,6 +74,14 @@ const Signin = () => {
             </button>
           </div>
         </div>
+        <p className="text-right">
+          <Link
+            to="/forget-password"
+            className="text-right text-sm text-button hover:underline cursor-pointer"
+          >
+            Forgot password?
+          </Link>
+        </p>
         <button
           type="submit"
           className="w-full bg-button text-white py-2 rounded-lg font-semibold transition cursor-pointer"

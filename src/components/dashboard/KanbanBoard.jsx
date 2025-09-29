@@ -1,6 +1,8 @@
 import { useState } from "react";
+import AddTaskModal from "../common/AddTaskModal";
 
 const KanbanBoard = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [tasks, setTasks] = useState({
     pending: [
       {
@@ -66,7 +68,6 @@ const KanbanBoard = () => {
     priority: "Medium",
     status: "pending",
   });
-  const [showAddTask, setShowAddTask] = useState(false);
 
   const addTask = () => {
     if (newTask.title.trim()) {
@@ -88,7 +89,7 @@ const KanbanBoard = () => {
         priority: "Medium",
         status: "pending",
       });
-      setShowAddTask(false);
+      setIsModalOpen(false);
     }
   };
 
@@ -112,88 +113,57 @@ const KanbanBoard = () => {
     { key: "complete", title: "Complete", color: "bg-green-100" },
   ];
 
+  // Drag-and-Drop Handlers
+  const onDragStart = (e, taskId, sourceColumn) => {
+    e.dataTransfer.setData(
+      "text/plain",
+      JSON.stringify({ taskId, sourceColumn })
+    );
+  };
+
+  const onDragOver = (e) => {
+    e.preventDefault();
+  };
+
+  const onDrop = (e, targetColumn) => {
+    e.preventDefault();
+    const data = JSON.parse(e.dataTransfer.getData("text/plain"));
+    const { taskId, sourceColumn } = data;
+
+    if (sourceColumn !== targetColumn) {
+      const task = tasks[sourceColumn].find((t) => t.id === taskId);
+      if (task) {
+        setTasks((prev) => ({
+          ...prev,
+          [sourceColumn]: prev[sourceColumn].filter((t) => t.id !== taskId),
+          [targetColumn]: [...prev[targetColumn], task],
+        }));
+      }
+    }
+  };
+
   return (
     <div className="space-y-4">
       {/* Add Task Button */}
-      <div className="flex justify-between items-center">
-        <h3 className="text-lg font-semibold text-gray-800">Task Board</h3>
+      <div className="flex justify-end items-center">
         <button
-          onClick={() => setShowAddTask(true)}
-          className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
+          onClick={() => setIsModalOpen(true)}
+          className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/95 hover:shadow transition-colors cursor-pointer"
         >
           Add Task
         </button>
       </div>
 
-      {/* Add Task Modal */}
-      {showAddTask && (
-        <div className="bg-white p-4 rounded-lg border shadow-sm">
-          <h4 className="font-semibold mb-3">Add New Task</h4>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-            <input
-              type="text"
-              placeholder="Task title"
-              value={newTask.title}
-              onChange={(e) =>
-                setNewTask({ ...newTask, title: e.target.value })
-              }
-              className="p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-            />
-            <input
-              type="text"
-              placeholder="Assignee"
-              value={newTask.assignee}
-              onChange={(e) =>
-                setNewTask({ ...newTask, assignee: e.target.value })
-              }
-              className="p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-            />
-            <select
-              value={newTask.priority}
-              onChange={(e) =>
-                setNewTask({ ...newTask, priority: e.target.value })
-              }
-              className="p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-            >
-              <option value="High">High Priority</option>
-              <option value="Medium">Medium Priority</option>
-              <option value="Low">Low Priority</option>
-            </select>
-            <select
-              value={newTask.status}
-              onChange={(e) =>
-                setNewTask({ ...newTask, status: e.target.value })
-              }
-              className="p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-            >
-              <option value="pending">Pending</option>
-              <option value="progress">In Progress</option>
-              <option value="review">In Review</option>
-              <option value="complete">Complete</option>
-            </select>
-          </div>
-          <div className="flex space-x-2">
-            <button
-              onClick={addTask}
-              className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
-            >
-              Add Task
-            </button>
-            <button
-              onClick={() => setShowAddTask(false)}
-              className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors"
-            >
-              Cancel
-            </button>
-          </div>
-        </div>
-      )}
-
       {/* Kanban Columns */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {columns.map((column) => (
-          <div key={column.key} className={`${column.color} p-4 rounded-lg`}>
-            <h4 className="font-semibold text-gray-800 mb-3 flex items-center justify-between">
+          <div
+            key={column.key}
+            className={`${column.color} p-4 rounded-lg`}
+            onDragOver={onDragOver}
+            onDrop={(e) => onDrop(e, column.key)}
+          >
+            <h4 className="font-semibold text-gray-800 mb-3 lg:text-lg flex items-center justify-between border-b pb-2 border-gray-400">
               {column.title}
               <span className="text-sm bg-white px-2 py-1 rounded-full">
                 {tasks[column.key].length}
@@ -203,7 +173,9 @@ const KanbanBoard = () => {
               {tasks[column.key].map((task) => (
                 <div
                   key={task.id}
-                  className="bg-white p-3 rounded-lg shadow-sm border"
+                  className="bg-white p-3 rounded-lg shadow-sm border cursor-move"
+                  draggable
+                  onDragStart={(e) => onDragStart(e, task.id, column.key)}
                 >
                   <h5 className="font-medium text-gray-800 mb-2">
                     {task.title}
@@ -224,6 +196,13 @@ const KanbanBoard = () => {
           </div>
         ))}
       </div>
+      <AddTaskModal
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+        newTask={newTask}
+        setNewTask={setNewTask}
+        addTask={addTask}
+      />
     </div>
   );
 };

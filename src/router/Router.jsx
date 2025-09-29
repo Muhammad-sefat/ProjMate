@@ -9,6 +9,8 @@ import Projects from "../pages/dashboard/Projects";
 import Team from "../pages/dashboard/Team";
 import Community from "../pages/dashboard/Community";
 import ProjectDetailsStepper from "../components/dashboard/ProjectDetailsStepper";
+import ForgotPassword from "../pages/auth/ForgotPassword";
+import Settings from "../pages/dashboard/Settings";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +28,10 @@ const router = createBrowserRouter([
       {
         path: "/signin",
         element: <Signin />,
+      },
+      {
+        path: "/forget-password",
+        element: <ForgotPassword />,
       },
     ],
   },
@@ -58,6 +64,10 @@ const router = createBrowserRouter([
       {
         path: "Community",
         element: <Community />,
+      },
+      {
+        path: "settings",
+        element: <Settings />,
       },
     ],
   },

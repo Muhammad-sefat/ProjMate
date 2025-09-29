@@ -1,4 +1,21 @@
+import { useEffect, useState } from "react";
+
 const ProjectOverview = () => {
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 100) {
+          clearInterval(interval);
+          return 80;
+        }
+        return prev + 1;
+      });
+    }, 20);
+
+    return () => clearInterval(interval);
+  }, []);
   return (
     <div className="space-y-6">
       {/* Project Header */}
@@ -32,8 +49,16 @@ const ProjectOverview = () => {
             <p className="text-green-600">$25,000</p>
           </div>
           <div className="bg-purple-50 p-4 rounded-lg">
-            <h4 className="font-semibold text-purple-800">Progress</h4>
-            <p className="text-purple-600">65%</p>
+            <h4 className="font-semibold text-purple-800 mb-2">Progress</h4>
+
+            <div className="w-full bg-purple-200 rounded-full h-4 overflow-hidden">
+              <div
+                className="bg-purple-600 h-4 transition-all duration-200"
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+
+            <p className="text-purple-600 mt-2">{progress}%</p>
           </div>
         </div>
       </div>
